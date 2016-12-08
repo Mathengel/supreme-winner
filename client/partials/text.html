@@ -1,0 +1,79 @@
+<div class="indexHeader col-md-2">
+  <a href="/#/"><h1>Lewis Engel</h1></a>
+
+  <div class="worksBox">
+    <a href="/#/about"><span class="colorFive">About</span></a>
+    <a href="/#/contact"><span class="colorSix">Contact</span></a>
+    <br>
+    <a href="#/animation" ><span class="colorOne">Emergence over Time</span></a>
+    <br>
+    <br>
+    <a href="#/text" ng-show = "results.length < 8 || singleChosen" ng-click="detail = !detail" ><span class="colorTwo">Detail</span></a>
+    <a href = "#/text" ng-hide = "results.length < 8 || singleChosen"  ng-click = "sortBy('date_created')"  ><span class="colorTwo">Date</span></a>
+    <a href = "#/text" ng-hide = "results.length < 8 || singleChosen"  ng-click = "sortBy('phrase')"  ><span class="colorThree">Phrase</span></a>
+
+    <form class="searchBox" ng-hide="singleChosen">
+      <input ng-model="searchTerms" placeholder="search...">
+    </form>
+
+    <div id="totals" ng-hide="singleChosen">
+      <p><span id="resultsCount">{{results.length}}</span> / <span id="totalCount">{{texts.length}}</span></p>
+    </div>
+    <div class="searchables" ng-if = "hover" ng-hide = "results.length < 8 || singleChosen" ng-cloak>
+      <p><span>Title: </span>{{textDeets.title}}</p>
+      <p><span>Phrase: </span>{{textDeets.phrase}}</p>
+      <span class="attributes">
+      <p><span>Colors: </span>{{textDeets.colors}}</p>
+      <p><span>Qualities: </span>{{textDeets.description}}</p>
+      <p><span>Shapes: </span>{{textDeets.shapes}}</p>
+      </span>
+    </div>
+    <div class="caroselDeets" ng-show = "results.length < 8 || singleChosen" ng-cloak >
+      <p><span>Title: </span>{{single.title}}</p>
+      <p><span>Phrase: </span>{{single.phrase}}</p>
+      <span class="attributes">
+      <p><span>Colors: </span>{{single.colors}}</p>
+      <p><span>Qualities: </span>{{single.description}}</p>
+      <p><span>Shapes: </span>{{single.shapes}}</p>
+      </span>
+    </div>
+  </div>
+</div>
+
+  <!-- CAROSEL -->
+  <div id="Carousel" class = "col-md-10" ng-show = "results.length < 8 || singleChosen">
+
+    <!-- Main CAROUSEL -->
+    <div ng-show="!singleChosen" class="slider">
+      <div ng-show="!detail">
+        <div ng-repeat="text in texts | filter: multiFilter as results "  ng-hide="!isCurrentSlideIndex($index)">
+          <img class = "nonDraggableImage slide " ng-src="{{text.large}}" alt="{{text.title}}"  >
+        <a class="arrow prev" href="#/text" ng-click="nextSlide(results[($index+1)%results.length])"></a>
+        <a class="arrow next" href="#/text" ng-click="prevSlide((results[(($index-1)<0?results.length-1:$index-1)]))"></a>
+        </div>
+      </div>
+
+      <!-- Detail CAROUSEL -->
+      <div ng-show="detail">
+        <img class = "nonDraggableImage slide" ng-src="{{text.detail}}" alt="{{text.title}}" ng-repeat="text in texts | filter: multiFilter as results "   ng-hide="!isCurrentSlideIndex($index)">
+        <a class="detailArrow prev" href="#/text" ng-click="nextSlide(results[($index+1)%results.length])"></a>
+        <a class="detailArrow next" href="#/text" ng-click="prevSlide((results[(($index-1)<0?results.length-1:$index-1)]))"></a>
+      </div>
+    </div>
+
+    <!-- Single Texture -->
+    <div ng-show="singleChosen">
+        <img ng-show="!detail" class = "nonDraggableImage slide " ng-src="{{single.large}}" alt="{{single.title}}"  ng-click="singleChosen = false">
+        <img ng-show="detail" class = "nonDraggableImage slide" ng-src="{{single.detail}}" alt="{{single.title}}"  ng-click="singleChosen = false">
+    </div>
+  </div>
+
+<div class="gridBox col-md-10">
+
+  <!-- GRID -->
+  <div ng-hide = "results.length < 8 || singleChosen" >
+      <div   class="nonDraggableImage smallGrid" ng-repeat="text in texts | filter: multiFilter | orderBy:propertyName">
+          <img ng-src="{{text.small}}" alt="{{text.title}}" ng-mouseover="hoverIn(text)" ng-mouseleave = "hoverOut()" ng-click="one(text)">
+      </div>
+  </div>
+</div>
