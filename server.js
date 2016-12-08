@@ -42,7 +42,7 @@ require('./server/config/routes.js')(app)
 
 //LISTENING!!!!!!!
 
-var port = 8000;
+var port = 1337;
 app.listen(port, function(){
     console.log("kickin' it on port", port);
 })

@@ -40,14 +40,14 @@
 }
 
   .indexHeader h1{
-    font-family: Gallery;
+    font-family: Helvetica;
     color: #252D32;
     /*font-weight: bold;*/
     /*margin-right: 10px;*/
   }
 
 .workingHeaders h2 {
-  font-family: Gallery;
+  font-family: Helvetica;
 
   color: #a5a5a5;
 }
